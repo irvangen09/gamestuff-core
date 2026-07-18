@@ -1,0 +1,29 @@
+{
+  "name": "gamestuff/gamestuff-core",
+  "description": "Foundation for GameStuff's Gutenberg blocks — fast, lightweight, and maintainable.",
+  "type": "wordpress-plugin",
+  "license": "GPL-2.0-or-later",
+  "require": {
+    "php": ">=8.0"
+  },
+  "require-dev": {
+    "wp-coding-standards/wpcs": "^3.0",
+    "phpcompatibility/phpcompatibility-wp": "^2.1",
+    "dealerdirect/phpcodesniffer-composer-installer": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "GameStuff\\": "includes/",
+      "GameStuff\\Blocks\\Toc\\": "src/toc/includes/"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  },
+  "scripts": {
+    "lint:php": "@php vendor/bin/phpcs",
+    "lint:php:fix": "@php vendor/bin/phpcbf"
+  }
+}
