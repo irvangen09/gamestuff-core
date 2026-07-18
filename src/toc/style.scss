@@ -1,0 +1,298 @@
+.gamestuff-toc {
+	--gamestuff-toc-width: 100%;
+	--gamestuff-toc-border-color: rgba( 0, 0, 0, 0.12 );
+	--gamestuff-toc-border-color: color-mix( in srgb, currentColor 15%, transparent );
+	--gamestuff-toc-muted-color: rgba( 0, 0, 0, 0.6 );
+	--gamestuff-toc-muted-color: color-mix( in srgb, currentColor 60%, transparent );
+	--gamestuff-toc-accent-color: var( --wp--preset--color--primary, #2563eb );
+
+	width: var( --gamestuff-toc-width );
+	max-width: 100%;
+	box-sizing: border-box;
+	margin-block: 1.5em;
+	border: 1px solid var( --gamestuff-toc-border-color );
+	border-radius: 4px;
+	color: inherit;
+
+	/*
+	 * A very subtle tint (not a solid color, not a card/shadow) so the
+	 * TOC reads as an intentional component instead of blending flatly
+	 * into the article text. Follows currentColor - automatically
+	 * correct in both light and dark mode without needing two
+	 * separate values.
+	 */
+	background-color: color-mix( in srgb, currentColor 4%, transparent );
+
+	*,
+	*::before,
+	*::after {
+		box-sizing: inherit;
+	}
+}
+
+/*
+ * "light" and "dark" are EXPLICIT overrides (a deliberate user choice,
+ * forced regardless of the theme) - unlike "auto" above, which
+ * automatically follows the theme via currentColor/inherit.
+ */
+.gamestuff-toc[ data-color-scheme='light' ] {
+	--gamestuff-toc-border-color: #d1d5db;
+	--gamestuff-toc-muted-color: #6b7280;
+	color: #1f2937;
+}
+
+.gamestuff-toc[ data-color-scheme='dark' ] {
+	--gamestuff-toc-border-color: #374151;
+	--gamestuff-toc-muted-color: #9ca3af;
+	color: #f3f4f6;
+}
+
+.gamestuff-toc--float-left {
+	float: left;
+	margin-inline-end: 1.5em;
+}
+
+.gamestuff-toc--float-right {
+	float: right;
+	margin-inline-start: 1.5em;
+}
+
+.gamestuff-toc--sticky-desktop,
+.gamestuff-toc--sticky-tablet,
+.gamestuff-toc--sticky-mobile {
+	--gamestuff-toc-sticky-offset: 0px;
+
+	z-index: 10;
+
+	/*
+	 * Normal (in-flow) mode only needs a very subtle tint. Sticky has a
+	 * DIFFERENT need: once it's stuck, other content (including images)
+	 * scrolls behind it - a 4% tint isn't solid enough for that, content
+	 * would show through. "Canvas" automatically follows the page's
+	 * actual background color (white in light mode, dark in dark mode),
+	 * consistent with the auto-adaptive approach used for color scheme.
+	 */
+	background-color: Canvas;
+}
+
+/*
+ * Desktop & tablet: add a small gap from the browser's top edge (a
+ * pure visual preference, so it doesn't sit flush against the edge).
+ * Mobile deliberately gets NO extra gap - it already reads fine as is.
+ *
+ * max-width + margin-inline-start:auto makes the TOC narrower and
+ * right-aligned while floating (instead of full-width and centered) -
+ * a simple, CSS-only approach that replaces the collapse-into-icon
+ * mechanism that was tried earlier but turned out too fragile for
+ * the benefit it gave.
+ */
+@media ( min-width: 782px ) {
+	.gamestuff-toc--sticky-desktop {
+		position: sticky;
+		top: calc( var( --gamestuff-toc-sticky-offset ) + 8px );
+		max-height: calc( 100vh - var( --gamestuff-toc-sticky-offset ) - 8px - 2em );
+		overflow-y: auto;
+		max-width: 320px;
+		margin-inline-start: auto;
+	}
+}
+
+@media ( min-width: 600px ) and ( max-width: 781px ) {
+	.gamestuff-toc--sticky-tablet {
+		position: sticky;
+		top: calc( var( --gamestuff-toc-sticky-offset ) + 8px );
+		max-height: calc( 100vh - var( --gamestuff-toc-sticky-offset ) - 8px - 2em );
+		overflow-y: auto;
+		max-width: 320px;
+		margin-inline-start: auto;
+	}
+}
+
+@media ( max-width: 599px ) {
+	.gamestuff-toc--sticky-mobile {
+		position: sticky;
+		top: var( --gamestuff-toc-sticky-offset );
+		max-height: calc( 100vh - var( --gamestuff-toc-sticky-offset ) - 2em );
+		overflow-y: auto;
+	}
+}
+
+@media ( prefers-reduced-motion: no-preference ) {
+	.gamestuff-toc--sticky-desktop,
+	.gamestuff-toc--sticky-tablet,
+	.gamestuff-toc--sticky-mobile {
+		scroll-behavior: smooth;
+	}
+}
+
+.gamestuff-toc__header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.5em;
+	padding: 0.75em 1em;
+}
+
+.gamestuff-toc__title {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.45em;
+	font-weight: 600;
+	font-size: 1em;
+	line-height: 1.4;
+}
+
+.gamestuff-toc__icon {
+	flex-shrink: 0;
+	width: 1em;
+	height: 1em;
+	color: var( --gamestuff-toc-muted-color );
+}
+
+.gamestuff-toc__toggle {
+	display: inline-flex;
+	align-items: center;
+	-webkit-appearance: none;
+	appearance: none;
+	background: none;
+	background-color: transparent;
+	border: none;
+	border-radius: 2px;
+	padding: 0;
+	color: var( --gamestuff-toc-accent-color );
+	font-size: 0.9em;
+	cursor: pointer;
+}
+
+.gamestuff-toc__toggle:focus-visible {
+	outline: 2px solid var( --gamestuff-toc-accent-color );
+	outline-offset: 2px;
+}
+
+.gamestuff-toc__toggle-label--show,
+.gamestuff-toc__toggle-label--hide {
+	display: none;
+}
+
+.gamestuff-toc__toggle[ aria-expanded='false' ] .gamestuff-toc__toggle-label--show {
+	display: inline;
+}
+
+.gamestuff-toc__toggle[ aria-expanded='true' ] .gamestuff-toc__toggle-label--hide {
+	display: inline;
+}
+
+.gamestuff-toc__content {
+	padding: 0 1em 1em;
+	border-top: 1px solid var( --gamestuff-toc-border-color );
+}
+
+.gamestuff-toc__content[ hidden ] {
+	display: none;
+}
+
+.gamestuff-toc__list {
+	list-style: decimal;
+	margin: 0.5em 0 0;
+	padding-inline-start: 1.25em;
+
+	.gamestuff-toc__list {
+		margin-top: 0.35em;
+		font-size: 0.95em;
+	}
+}
+
+/*
+ * Numeration: relies entirely on the browser's built-in
+ * list-style-type, no manual numbering logic in PHP/JS. Applied the
+ * same way at every level (including nested) for consistency.
+ */
+.gamestuff-toc__list--numeration-none {
+	list-style-type: none;
+	padding-inline-start: 0.75em;
+}
+
+.gamestuff-toc__list--numeration-roman {
+	list-style-type: upper-roman;
+}
+
+.gamestuff-toc__item {
+	margin-block: 0.35em;
+}
+
+.gamestuff-toc__link {
+	color: inherit;
+	text-decoration: none;
+	border-bottom: 1px solid transparent;
+}
+
+.gamestuff-toc__link:hover,
+.gamestuff-toc__link:focus {
+	text-decoration: underline;
+}
+
+.gamestuff-toc__link--active {
+	display: block;
+	color: var( --gamestuff-toc-accent-color );
+	font-weight: 600;
+	background-color: color-mix( in srgb, var( --gamestuff-toc-accent-color ) 12%, transparent );
+	border-radius: 3px;
+	margin-inline: -0.5em;
+	padding-inline: 0.5em;
+	padding-block: 0.1em;
+}
+
+.gamestuff-toc__collapse-toggle {
+	-webkit-appearance: none;
+	appearance: none;
+	background: none;
+	background-color: transparent;
+	border: none;
+	border-radius: 2px;
+	padding: 0;
+	margin-inline-end: 0.35em;
+	cursor: pointer;
+	color: var( --gamestuff-toc-muted-color );
+	font-size: 0.8em;
+	line-height: 1;
+	vertical-align: middle;
+
+	&::before {
+		content: '▸';
+		display: inline-block;
+		transition: transform 0.15s ease;
+	}
+
+	&[ aria-expanded='true' ]::before {
+		transform: rotate( 90deg );
+	}
+}
+
+.gamestuff-toc__collapse-toggle:focus-visible {
+	outline: 2px solid var( --gamestuff-toc-accent-color );
+	outline-offset: 2px;
+}
+
+@media ( prefers-reduced-motion: reduce ) {
+	.gamestuff-toc__collapse-toggle::before {
+		transition: none;
+	}
+}
+
+@media ( max-width: 599px ) {
+	.gamestuff-toc--hide-mobile {
+		display: none;
+	}
+}
+
+@media ( min-width: 600px ) and ( max-width: 781px ) {
+	.gamestuff-toc--hide-tablet {
+		display: none;
+	}
+}
+
+@media ( min-width: 782px ) {
+	.gamestuff-toc--hide-desktop {
+		display: none;
+	}
+}
