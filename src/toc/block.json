@@ -1,0 +1,43 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "gamestuff/toc",
+	"title": "GameStuff TOC",
+	"category": "widgets",
+	"description": "Table of Contents block for articles and documentation.",
+	"keywords": [ "toc", "table of contents", "daftar isi" ],
+	"version": "0.1.0",
+	"textdomain": "gamestuff-core",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js",
+	"render": "file:./render.php",
+	"attributes": {
+		"minimal_heading_count": { "type": "string", "default": "" },
+		"hierarchical_view": { "type": "string", "default": "" },
+		"title": { "type": "string", "default": "" },
+		"label_show": { "type": "string", "default": "" },
+		"label_hide": { "type": "string", "default": "" },
+		"default_hidden": { "type": "string", "default": "" },
+		"width": { "type": "string", "default": "" },
+		"float": { "type": "string", "enum": [ "", "none", "left", "right" ], "default": "" },
+		"color_scheme": { "type": "string", "enum": [ "", "auto", "light", "dark" ], "default": "" },
+		"by_level": { "type": "array", "items": { "type": "string" }, "default": [] },
+		"hash_format": { "type": "string", "enum": [ "", "slug", "numeric" ], "default": "" },
+		"numeration": { "type": "string", "enum": [ "", "none", "decimal", "roman" ], "default": "" },
+		"smooth_scroll": { "type": "string", "default": "" },
+		"scroll_offset": { "type": "string", "default": "" },
+		"highlight_active": { "type": "string", "default": "" },
+		"collapse_subheading": { "type": "string", "default": "" },
+		"sticky_desktop": { "type": "string", "default": "" },
+		"sticky_tablet": { "type": "string", "default": "" },
+		"sticky_mobile": { "type": "string", "default": "" },
+		"display_desktop": { "type": "boolean", "default": true },
+		"display_tablet": { "type": "boolean", "default": true },
+		"display_mobile": { "type": "boolean", "default": true }
+	},
+	"supports": {
+		"html": false
+	}
+}
