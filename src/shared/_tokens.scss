@@ -1,0 +1,20 @@
+/**
+ * Shared design tokens for GameStuff Core block SCSS.
+ *
+ * Single source of truth for values used by more than one block, so
+ * they don't get hardcoded independently in each block's stylesheet.
+ * This file only holds tokens the currently migrated blocks actually
+ * use -- more will be added as later blocks (Infobox, Timeline,
+ * Content Scroll) are migrated, rather than porting unused values
+ * ahead of time.
+ */
+
+/**
+ * Viewport width, in pixels, at and below which GameStuff blocks
+ * switch to their mobile layout.
+ *
+ * Must stay in sync with MOBILE_BREAKPOINT in src/shared/constants.js
+ * (SCSS can't import a JS constant, so these need to be updated by
+ * hand if this value ever changes).
+ */
+$gamestuff-mobile-breakpoint: 781px;

@@ -31,7 +31,7 @@
 		},
 		"icon": {
 			"type": "string",
-			"default": "dashicons-media-document"
+			"default": ""
 		},
 		"iconColor": {
 			"type": "string",
