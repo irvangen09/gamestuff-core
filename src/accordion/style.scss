@@ -1,0 +1,20 @@
+.gamestuff-accordion {
+	display: flex;
+	flex-direction: column;
+
+	/*
+	 * Empty/unset by default (--gamestuff-font-family is never
+	 * declared unless a future Typography setting has an actual
+	 * value saved), so `inherit` is what actually applies out of the
+	 * box: following whatever the theme's own typography sets.
+	 * Cascades down to every Accordion Item automatically -- no need
+	 * to repeat this in accordion-item/style.scss.
+	 */
+	font-family: var(--gamestuff-font-family, inherit);
+}
+
+/* Tighten the gap between this accordion and whatever
+   sits above it, without affecting spacing between accordion items. */
+.gamestuff-accordion-item:first-child .gamestuff-accordion-item__trigger {
+	padding-top: 4px;
+}

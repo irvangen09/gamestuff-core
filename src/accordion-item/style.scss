@@ -1,0 +1,275 @@
+@use "../shared/tokens" as *;
+
+/*
+ * Background and border colors below use color-mix() against
+ * currentColor instead of fixed hex values (e.g. #fff, #dcdcde).
+ * currentColor always reflects the actual text color in whatever
+ * context the block is placed in, so a light tint automatically
+ * reads correctly on a light background and a dark tint automatically
+ * reads correctly on a dark background -- without depending on any
+ * specific theme's dark-mode class or custom properties. This is the
+ * same approach used by GameStuff TOC.
+ */
+.gamestuff-accordion-item {
+	background: color-mix(in srgb, currentColor 3%, transparent);
+	overflow: hidden;
+}
+
+.gamestuff-accordion-item__heading {
+	margin: 0;
+}
+
+/*
+ * Many themes apply a compound selector to every heading inside their
+ * content wrapper (e.g. `.entry-content h2 { margin-top: 1.35em; }`),
+ * which is more specific than our single class selector above and
+ * can win the cascade -- adding unwanted extra spacing above and
+ * below each Accordion Item heading, on top of the trigger's own
+ * padding. Re-asserting the reset here, scoped to the block's own
+ * wrapper class with !important, guarantees it wins regardless of
+ * the active theme's selector, without touching the theme or any
+ * other heading on the site.
+ */
+.wp-block-gamestuff-accordion-item .gamestuff-accordion-item__heading {
+	margin: 0 !important;
+}
+
+.gamestuff-accordion-item__trigger,
+.gamestuff-accordion-item__trigger:hover,
+.gamestuff-accordion-item__trigger:active,
+.gamestuff-accordion-item__trigger:focus {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+
+	width: 100%;
+
+	padding: 18px 0 14px;
+
+	margin: 0;
+	border: 0;
+	border-bottom: 1px solid color-mix(in srgb, currentColor 15%, transparent);
+
+	background: transparent;
+
+	font: inherit;
+	text-align: left;
+	text-decoration: none;
+	color: inherit;
+
+	cursor: default;
+
+	appearance: none;
+	-webkit-appearance: none;
+}
+
+.gamestuff-accordion-item__trigger:focus-visible {
+	outline: 2px solid #ff5a1f;
+	outline-offset: -2px;
+}
+
+.gamestuff-accordion-item__icon {
+	flex: 0 0 16px;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	width: 16px;
+	height: 16px;
+
+	margin-top: 1px;
+
+	font-size: 18px;
+	line-height: 1;
+
+	color: #ff5a1f;
+}
+
+/*
+ * When the Icon field is left empty, the markup still outputs
+ * `.gamestuff-accordion-item__icon dashicons` with no dashicons-xxx
+ * modifier (that modifier is what actually paints a glyph via
+ * ::before). Detecting its absence here lets the empty icon box
+ * collapse itself -- its own trigger `gap` no longer applies to a
+ * display:none item -- so the title shifts flush left automatically,
+ * with no placeholder box and no JS/JSX change required.
+ */
+.gamestuff-accordion-item__icon:not([class*="dashicons-"]) {
+	display: none;
+}
+
+.gamestuff-accordion-item__title {
+	flex: 1;
+
+	margin: 0;
+
+	font-weight: 700;
+	line-height: 1.4;
+
+	color: inherit;
+}
+
+/*
+ * The title renders as a real h2-h6 (see headingLevel), so it
+ * inherits the active theme's own heading typography -- some themes
+ * apply text-transform (e.g. uppercase) to headings globally. This
+ * override preserves the exact casing typed in the editor instead,
+ * scoped strictly to the Accordion's own wrapper class so no other
+ * heading on the site is affected.
+ */
+.wp-block-gamestuff-accordion-item .gamestuff-accordion-item__title {
+	text-transform: none !important;
+}
+
+/*
+ * This block's own internal heading scale, kept consistent regardless
+ * of the active theme's own heading sizes -- so an Accordion Item
+ * title looks the same whether the surrounding theme's h2 is huge or
+ * tiny.
+ */
+
+.gamestuff-accordion-item__heading h2 {
+	font-size: 1.5em;
+}
+
+.gamestuff-accordion-item__heading h3 {
+	font-size: 1.285em;
+}
+
+.gamestuff-accordion-item__heading h4 {
+	font-size: 1.21em;
+}
+
+.gamestuff-accordion-item__heading h5 {
+	font-size: 1.21em;
+}
+
+.gamestuff-accordion-item__heading h6 {
+	font-size: 1.07em;
+}
+
+.gamestuff-accordion-item__heading h2,
+.gamestuff-accordion-item__heading h3,
+.gamestuff-accordion-item__heading h4,
+.gamestuff-accordion-item__heading h5,
+.gamestuff-accordion-item__heading h6 {
+	margin: 0;
+	line-height: 1.4;
+	font-weight: 700;
+}
+
+.gamestuff-accordion-item__chevron {
+	display: none;
+
+	flex-shrink: 0;
+
+	margin-left: auto;
+
+	font-size: 13px;
+	line-height: 1;
+
+	color: color-mix(in srgb, currentColor 55%, transparent);
+}
+
+.gamestuff-accordion-item__content {
+	padding: 16px 0 20px;
+
+	background: color-mix(in srgb, currentColor 3%, transparent);
+	color: inherit;
+}
+
+/* ---------------------------------
+   Content Spacing
+--------------------------------- */
+
+.gamestuff-accordion-item__content > *:first-child {
+	margin-top: 0;
+}
+
+.gamestuff-accordion-item__content > *:last-child {
+	margin-bottom: 0;
+}
+
+.gamestuff-accordion-item__content p,
+.gamestuff-accordion-item__content ul,
+.gamestuff-accordion-item__content ol,
+.gamestuff-accordion-item__content table,
+.gamestuff-accordion-item__content figure,
+.gamestuff-accordion-item__content .wp-block-image,
+.gamestuff-accordion-item__content .wp-block-table,
+.gamestuff-accordion-item__content .wp-block-columns {
+	margin-bottom: 1.5rem;
+}
+
+.gamestuff-accordion-item__content img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+.gamestuff-accordion-item__content table {
+	width: 100%;
+}
+
+.gamestuff-accordion-item__content table,
+.gamestuff-accordion-item__content th,
+.gamestuff-accordion-item__content td {
+	border-color: color-mix(in srgb, currentColor 15%, transparent);
+}
+
+/* ------------------------------
+   Mobile
+------------------------------ */
+
+@media (max-width: $gamestuff-mobile-breakpoint) {
+
+	.gamestuff-accordion-item__trigger,
+	.gamestuff-accordion-item__trigger:hover,
+	.gamestuff-accordion-item__trigger:active,
+	.gamestuff-accordion-item__trigger:focus {
+		cursor: pointer;
+
+		gap: 10px;
+
+		padding: 12px 0 10px;
+	}
+
+	.gamestuff-accordion-item__chevron {
+		display: block;
+	}
+
+	/*
+	 * Progressive enhancement: collapsing content on mobile is only
+	 * safe once we know the toggle script (view.js) is actually
+	 * running, otherwise the button would be inert and the content
+	 * permanently unreachable. The `.js` class is added to <html>
+	 * by a tiny synchronous inline script printed in <head> before
+	 * first paint, so this changes nothing visually when JS works
+	 * normally. If JS fails to load or is disabled, `.js` is never
+	 * added, these rules never apply, and content simply stays
+	 * visible on mobile -- same baseline behavior as desktop.
+	 */
+	.js .gamestuff-accordion-item__content {
+		max-height: 0;
+		padding-top: 0;
+		padding-bottom: 0;
+
+		opacity: 0;
+		visibility: hidden;
+		overflow: hidden;
+	}
+
+	.js .gamestuff-accordion-item.is-open .gamestuff-accordion-item__content {
+		max-height: none;
+		padding-top: 10px;
+		padding-bottom: 14px;
+
+		opacity: 1;
+		visibility: visible;
+	}
+
+	.js .gamestuff-accordion-item.is-open .gamestuff-accordion-item__chevron {
+		transform: rotate(180deg);
+	}
+}
