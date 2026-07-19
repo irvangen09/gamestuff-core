@@ -1,0 +1,33 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+
+	"name": "gamestuff/accordion",
+
+	"version": "0.1.0",
+
+	"title": "GameStuff Accordion",
+
+	"category": "gamestuff",
+
+	"icon": "excerpt-view",
+
+	"description": "Displaying content in collapsible panels (accordion style) for GameStuff.",
+
+	"keywords": [ "accordion", "faq", "toggle", "gamestuff" ],
+
+	"textdomain": "gamestuff-core",
+
+	"supports": {
+		"html": false,
+		"reusable": false
+	},
+
+	"editorScript": "file:./index.js",
+
+	"editorStyle": "file:./index.css",
+
+	"style": "file:./style-index.css",
+
+	"viewScript": "file:./view.js"
+}

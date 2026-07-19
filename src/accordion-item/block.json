@@ -1,0 +1,66 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+
+	"name": "gamestuff/accordion-item",
+
+	"version": "0.1.0",
+
+	"title": "Accordion Item",
+
+	"category": "gamestuff",
+
+	"parent": [ "gamestuff/accordion" ],
+
+	"icon": "excerpt-view",
+
+	"description": "A single panel that can be opened or closed within the GameStuff Accordion.",
+
+	"keywords": [ "accordion", "panel", "faq", "gamestuff" ],
+
+	"textdomain": "gamestuff-core",
+
+	"attributes": {
+		"title": {
+			"type": "string",
+			"default": ""
+		},
+		"headingLevel": {
+			"type": "string",
+			"default": "h2"
+		},
+		"icon": {
+			"type": "string",
+			"default": "dashicons-media-document"
+		},
+		"iconColor": {
+			"type": "string",
+			"default": "#ff5a1f"
+		},
+		"triggerId": {
+			"type": "string",
+			"source": "attribute",
+			"selector": ".gamestuff-accordion-item__trigger",
+			"attribute": "id",
+			"default": ""
+		},
+		"panelId": {
+			"type": "string",
+			"source": "attribute",
+			"selector": ".gamestuff-accordion-item__content",
+			"attribute": "id",
+			"default": ""
+		}
+	},
+
+	"supports": {
+		"html": false,
+		"reusable": false
+	},
+
+	"editorScript": "file:./index.js",
+
+	"editorStyle": "file:./index.css",
+
+	"style": "file:./style-index.css"
+}
